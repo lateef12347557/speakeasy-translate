@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Globe } from "lucide-react";
+import { AnimatedCounter } from "./AnimatedCounter";
 
 const languages = [
   { code: "EN", name: "English", region: "Global" },
@@ -16,11 +17,24 @@ const languages = [
   { code: "JA", name: "Japanese", region: "Japan" },
 ];
 
+const stats = [
+  { value: "50+", label: "Languages" },
+  { value: "100ms", label: "Latency" },
+  { value: "99.9%", label: "Accuracy" },
+];
+
 export const Languages = () => {
   return (
     <section className="py-32 relative overflow-hidden">
-      {/* Gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/50 to-background" />
+      {/* Animated gradient background */}
+      <motion.div 
+        className="absolute inset-0 aurora-bg"
+        animate={{
+          backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+        }}
+        transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background" />
       
       <div className="container relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -29,57 +43,74 @@ export const Languages = () => {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, type: "spring" }}
           >
             <motion.span
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6"
+              whileHover={{ scale: 1.05 }}
+              className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-medium mb-6 cursor-default"
             >
-              Global Reach
+              <motion.span
+                animate={{ opacity: [1, 0.5, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                🌍
+              </motion.span>
+              {" "}Global Reach
             </motion.span>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              <span className="gradient-text">50+ Languages</span>
+            
+            <motion.h2 
+              className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <motion.span 
+                className="gradient-text inline-block"
+                animate={{ 
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{ duration: 5, repeat: Infinity }}
+              >
+                50+ Languages
+              </motion.span>
               <br />
               <span className="text-foreground">One Platform</span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+            </motion.h2>
+            
+            <motion.p 
+              className="text-xl text-muted-foreground mb-8 leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
               From English to Yoruba, Spanish to Swahili. We support the languages 
               your students actually speak, including African languages often 
               overlooked by other platforms.
-            </p>
+            </motion.p>
             
-            {/* Stats */}
+            {/* Animated Stats */}
             <div className="grid grid-cols-3 gap-6">
-              {[
-                { value: "50+", label: "Languages" },
-                { value: "100ms", label: "Latency" },
-                { value: "99.9%", label: "Accuracy" },
-              ].map((stat, index) => (
-                <motion.div
+              {stats.map((stat, index) => (
+                <AnimatedCounter
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="text-3xl md:text-4xl font-bold gradient-text mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </motion.div>
+                  value={stat.value}
+                  label={stat.label}
+                />
               ))}
             </div>
           </motion.div>
 
-          {/* Right - Language cloud */}
+          {/* Right - Language cloud with enhanced animations */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, type: "spring" }}
             className="relative"
           >
             {/* Animated globe background */}
@@ -95,31 +126,67 @@ export const Languages = () => {
                 className="absolute w-48 h-48 md:w-64 md:h-64 rounded-full border border-primary/20"
               />
               <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                className="absolute w-32 h-32 md:w-48 md:h-48 rounded-full border border-secondary/20"
+              />
+              <motion.div
                 className="absolute"
-                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-                transition={{ duration: 4, repeat: Infinity }}
+                animate={{ 
+                  scale: [1, 1.2, 1], 
+                  opacity: [0.2, 0.4, 0.2],
+                  rotate: [0, 180, 360]
+                }}
+                transition={{ duration: 8, repeat: Infinity }}
               >
-                <Globe className="w-24 h-24 text-primary/20" />
+                <Globe className="w-24 h-24 text-primary/30" />
               </motion.div>
             </div>
 
-            {/* Language badges */}
+            {/* Language badges with wave animation */}
             <div className="relative grid grid-cols-3 gap-3 p-8">
               {languages.map((lang, index) => (
                 <motion.div
                   key={lang.code}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0, rotate: -20 }}
+                  whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  className="glass-card rounded-xl p-4 text-center cursor-pointer group"
+                  transition={{ 
+                    delay: index * 0.08,
+                    type: "spring",
+                    stiffness: 200,
+                    damping: 15
+                  }}
+                  whileHover={{ 
+                    scale: 1.1, 
+                    y: -8,
+                    rotate: [0, -5, 5, 0],
+                    boxShadow: "0 20px 40px hsl(0 0% 0% / 0.3), 0 0 30px hsl(var(--primary) / 0.2)"
+                  }}
+                  className="glass-card rounded-xl p-4 text-center cursor-pointer group relative overflow-hidden"
                 >
-                  <div className="text-lg font-bold text-foreground group-hover:text-primary transition-colors">
+                  {/* Shimmer effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.6 }}
+                  />
+                  <motion.div 
+                    className="text-lg font-bold text-foreground group-hover:text-primary transition-colors relative z-10"
+                    animate={index < 3 ? {
+                      color: [
+                        "hsl(var(--foreground))",
+                        "hsl(var(--primary))",
+                        "hsl(var(--foreground))"
+                      ]
+                    } : {}}
+                    transition={{ duration: 3, repeat: Infinity, delay: index * 0.2 }}
+                  >
                     {lang.code}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-1">{lang.name}</div>
-                  <div className="text-[10px] text-muted-foreground/60 mt-0.5">
+                  </motion.div>
+                  <div className="text-xs text-muted-foreground mt-1 relative z-10">{lang.name}</div>
+                  <div className="text-[10px] text-muted-foreground/60 mt-0.5 relative z-10">
                     {lang.region}
                   </div>
                 </motion.div>
