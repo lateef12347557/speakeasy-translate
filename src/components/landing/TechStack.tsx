@@ -2,9 +2,9 @@ import { motion } from "framer-motion";
 
 const technologies = [
   {
-    name: "Next.js",
-    description: "React Framework",
-    color: "bg-foreground text-background",
+    name: "React",
+    description: "Frontend",
+    color: "bg-gradient-to-r from-[#61DAFB] to-[#00D8FF] text-black font-semibold",
   },
   {
     name: "Solana",
@@ -14,7 +14,7 @@ const technologies = [
   {
     name: "AssemblyAI",
     description: "Speech-to-Text",
-    color: "bg-gradient-to-r from-blue-500 to-blue-600 text-white",
+    color: "bg-gradient-to-r from-[#3B82F6] to-[#1D4ED8] text-white",
   },
   {
     name: "TypeScript",
@@ -24,12 +24,7 @@ const technologies = [
   {
     name: "Tailwind",
     description: "Styling",
-    color: "bg-gradient-to-r from-cyan-500 to-blue-500 text-white",
-  },
-  {
-    name: "Vercel",
-    description: "Deployment",
-    color: "bg-foreground text-background",
+    color: "bg-gradient-to-r from-[#06B6D4] to-[#0EA5E9] text-white",
   },
 ];
 
